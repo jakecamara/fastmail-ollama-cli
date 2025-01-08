@@ -20,7 +20,7 @@ This Python project processes emails using the Fastmail API and summarizes or ge
 ## Requirements
 - Python 3.7 or later
 - Fastmail API credentials
-- Access to the Ollama API
+- Access to an Ollama instance
 
 ## Setup Instructions
 
