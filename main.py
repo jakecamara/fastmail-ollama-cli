@@ -19,7 +19,7 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-# Step 1: Get Inbox ID
+# Get Inbox ID
 def get_inbox_id():
     payload = {
         "using": ["urn:ietf:params:jmap:core", "urn:ietf:params:jmap:mail"],
@@ -35,7 +35,7 @@ def get_inbox_id():
             return mailbox["id"]
     return None
 
-# Step 2: Fetch Emails in Inbox
+# Fetch Emails in Inbox
 def fetch_emails(inbox_id, limit=10):
     payload = {
         "using": ["urn:ietf:params:jmap:core", "urn:ietf:params:jmap:mail"],
@@ -56,7 +56,7 @@ def fetch_emails(inbox_id, limit=10):
     response.raise_for_status()
     return response.json()["methodResponses"][0][1]["ids"]
 
-# Step 3: Fetch Email Details for Selected Email
+# Fetch Email Details for Selected Email
 def get_email_details(email_ids):
     payload = {
         "using": ["urn:ietf:params:jmap:core", "urn:ietf:params:jmap:mail"],
@@ -132,7 +132,7 @@ def fetch_full_email_body(blob_id):
     # Remove excessive whitespace and return clean content
     return re.sub(r'\s+', ' ', plain_text).strip()
 
-# Step 4: Process with Ollama
+# Process with Ollama
 def process_with_ollama(prompt):
     payload = {
         "stream": False,
@@ -186,7 +186,7 @@ def interactive_email_processor():
                 # print("\nDEBUG: Content fetched from the email:")
                 # print(content)
 
-                # Step 2: Summarize Email
+                # Summarize Email
                 prompt = (
                     f"Summarize the following email, highlighting key points. Skip all standard marketing email closing content that talks about their social media, address, links to unsubscribe, etc. Also your response should just a summary paragraph, don't include anything introducing the summary. Just the summary in as many sentences as are required to cover all points.\n\n"
                     f"Sender: {sender}\n"
@@ -200,7 +200,7 @@ def interactive_email_processor():
                 summary = process_with_ollama(prompt)
                 print(f"\nSummary:\n{summary}")
 
-                # Step 3: Next Actions
+                # Next Actions
                 while True:
                     print("\nOptions:")
                     print("1: Review another email")
